@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ -x /usr/sbin/lsof ]; then
+	exec /usr/sbin/lsof -Pnl +M -i4 "$@"
+elif [ -x /bin/netstat ]; then
+	exec /bin/netstat -tunpl "$@"
+	exec /bin/netstat -npl "$@"
+else
+	echo 'How?' >&2
+fi
+exit 1
